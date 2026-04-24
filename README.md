@@ -46,3 +46,25 @@ The goal is to simulate how a data analyst would approach a new dataset but in a
 ---
 
 ## Project Structure
+
+```
+automated-eda-tool/
+│
+├── app.py                              # Main Streamlit app (entry point)
+├── requirements.txt                    # Python dependencies
+├── README.md                           # Project documentation
+│
+├── modules/                            # Modular EDA components (to be implemented)
+│ ├── overview.py                       # Dataset overview logic
+│ ├── missing.py                        # Missing values analysis
+│ ├── distributions.py                  # Distribution plots
+│ ├── correlations.py                   # Correlation analysis
+│ └── outliers.py                       # Outlier detection
+│
+├── notebooks/
+│ └── eda_exploration.ipynb             # Initial exploration and testing
+│
+├── data/                               # Sample datasets (for demo/testing)
+│
+├── screenshots/                        # App screenshots for README
+```
