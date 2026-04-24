@@ -18,18 +18,48 @@ if uploaded_file is not None:
     st.success("Dataset uploaded successfully.")
 
     st.subheader("Dataset Preview")
-    st.dataframe(df.head())
+    st.dataframe(df.head(), use_container_width=True)
 
     st.subheader("Dataset Overview")
+
+    exact_duplicates = df.duplicated().sum()
+    total_missing = df.isnull().sum().sum()
 
     col1, col2, col3, col4 = st.columns(4)
 
     col1.metric("Rows", df.shape[0])
     col2.metric("Columns", df.shape[1])
-    col3.metric("Duplicate Rows", df.duplicated().sum())
-    col4.metric("Missing Values", df.isnull().sum().sum())
+    col3.metric("Exact Duplicates", exact_duplicates)
+    col4.metric("Missing Values", total_missing)
+
+    st.subheader("Duplicate Detection (Advanced)")
+
+    selected_cols = st.multiselect(
+        "Select columns to check for logical duplicates",
+        df.columns.tolist()
+    )
+
+    if selected_cols:
+        logical_duplicates = df.duplicated(subset=selected_cols).sum()
+
+        st.metric("Logical Duplicates", logical_duplicates)
+
+        if logical_duplicates > 0:
+            st.warning(
+                f"{logical_duplicates} potential logical duplicate row(s) found based on: "
+                + ", ".join(selected_cols)
+            )
+
+            duplicate_rows = df[df.duplicated(subset=selected_cols, keep=False)]
+            st.write("Potential duplicate records:")
+            st.dataframe(duplicate_rows, use_container_width=True)
+        else:
+            st.success("No logical duplicates found for the selected columns.")
+    else:
+        st.info("Select one or more columns to check for logical duplicates.")
 
     st.subheader("Column Information")
+
     overview_df = pd.DataFrame({
         "Column": df.columns,
         "Data Type": df.dtypes.astype(str),
@@ -38,6 +68,7 @@ if uploaded_file is not None:
         "Unique Values": df.nunique().values
     })
 
-    st.dataframe(overview_df)
+    st.dataframe(overview_df, use_container_width=True)
+
 else:
     st.info("Upload a CSV file to begin.")

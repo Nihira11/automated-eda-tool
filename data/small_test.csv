@@ -1,0 +1,11 @@
+id,name,age,gender,salary,department,joined_year
+1,Alice,25,F,50000,HR,2020
+2,Bob,30,M,60000,Engineering,2019
+3,Charlie,,M,70000,Engineering,2018
+4,Diana,28,F,,Marketing,2021
+5,Ethan,35,M,80000,Finance,2017
+6,Farah,22,F,40000,HR,2022
+7,George,29,M,,Marketing,2020
+8,Hannah,31,F,65000,,2019
+9,Ian,27,M,55000,Engineering,
+10,Alice,25,F,50000,HR,2020
