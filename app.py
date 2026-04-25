@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from modules.missing import show_missing_values
 from modules.distributions import show_distribution
+from modules.correlations import show_correlations
 
 st.set_page_config(
     page_title="Automated EDA Tool",
@@ -122,6 +123,9 @@ if uploaded_file is not None:
         st.success("No missing values found in any column.")
 
     show_distribution(df)
+
+    st.markdown("---")
+    show_correlations(df)
 
 else:
     st.info("Upload a CSV file to begin.")
