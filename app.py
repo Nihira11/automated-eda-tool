@@ -4,6 +4,7 @@ import pandas as pd
 from modules.overview import show_overview
 from modules.missing import show_missing_values
 from modules.distributions import show_distribution
+from modules.outliers import show_outliers
 from modules.correlations import show_correlations
 from modules.target import show_target_analysis
 
@@ -87,6 +88,11 @@ if uploaded_file is not None:
 
     # distributions
     show_distribution(df)
+
+    st.markdown("---")
+    
+    # outliers
+    show_outliers(df)
 
     st.markdown("---")
 
