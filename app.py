@@ -3,6 +3,7 @@ import pandas as pd
 from modules.missing import show_missing_values
 from modules.distributions import show_distribution
 from modules.correlations import show_correlations
+from modules.target import show_target_analysis
 
 st.set_page_config(
     page_title="Automated EDA Tool",
@@ -126,6 +127,9 @@ if uploaded_file is not None:
 
     st.markdown("---")
     show_correlations(df)
+
+    st.markdown("---")
+    show_target_analysis(df)
 
 else:
     st.info("Upload a CSV file to begin.")
