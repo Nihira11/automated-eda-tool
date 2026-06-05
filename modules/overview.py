@@ -33,22 +33,29 @@ def show_overview(df: pd.DataFrame):
     st.subheader("Dataset Overview")
 
     total_missing = df.isnull().sum().sum()
-
     likely_id_cols = detect_likely_id_columns(df)
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
 
-    col1.metric("Rows", df.shape[0])
-    col2.metric("Columns", df.shape[1])
-    col3.metric("Missing Values", total_missing)
+    col1.metric("Rows", f"{df.shape[0]:,}")
+    col2.metric("Columns", f"{df.shape[1]:,}")
+    col3.metric("Missing Values", f"{total_missing:,}")
+    col4.metric("Likely ID Columns", len(likely_id_cols))
 
     st.markdown("### Dataset Preview")
-    st.dataframe(df.head(), use_container_width=True)
-    
+    st.caption("First five rows of the uploaded dataset.")
+
+    st.dataframe(
+        df.head(),
+        use_container_width=True,
+        hide_index=True
+    )
+
     st.markdown("### Duplicate Detection")
 
     st.write(
-        "Select columns that should uniquely identify a record."
+        "Select columns that should uniquely identify a record. "
+        "The tool checks repeated records based on those selected columns."
     )
 
     default_duplicate_cols = [
@@ -87,16 +94,21 @@ def show_overview(df: pd.DataFrame):
             temp_df = temp_df.dropna(subset=selected_cols)
 
         repeated_records = temp_df.duplicated(subset=selected_cols).sum()
-        repeated_percent = round(repeated_records / len(temp_df) * 100, 2) if len(temp_df) > 0 else 0
+
+        repeated_percent = (
+            round(repeated_records / len(temp_df) * 100, 2)
+            if len(temp_df) > 0
+            else 0
+        )
 
         col_a, col_b = st.columns(2)
 
-        col_a.metric("Potential Duplicate Records", repeated_records)
+        col_a.metric("Potential Duplicate Records", f"{repeated_records:,}")
         col_b.metric("Duplicate %", f"{repeated_percent}%")
 
         if repeated_records > 0:
             st.warning(
-                f"{repeated_records} potential repeated record(s) found using: "
+                f"{repeated_records:,} potential repeated record(s) found using: "
                 + ", ".join(selected_cols)
             )
 
@@ -104,7 +116,11 @@ def show_overview(df: pd.DataFrame):
                 temp_df.duplicated(subset=selected_cols, keep=False)
             ]
 
-            st.dataframe(repeated_rows, use_container_width=True)
+            st.dataframe(
+                repeated_rows,
+                use_container_width=True,
+                hide_index=True
+            )
 
         else:
             st.success("No repeated records found using the selected columns.")
@@ -132,4 +148,8 @@ def show_overview(df: pd.DataFrame):
         lambda col: "Likely ID" if col in likely_id_cols else "Data Feature"
     )
 
-    st.dataframe(overview_df, use_container_width=True)
+    st.dataframe(
+        overview_df,
+        use_container_width=True,
+        hide_index=True
+    )

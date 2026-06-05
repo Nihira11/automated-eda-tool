@@ -1,5 +1,35 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
+
+
+def style_plotly_chart(fig):
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
+        font=dict(color="#1F2937"),
+        title_font=dict(color="#1F2937", size=20),
+        legend=dict(
+            font=dict(color="#1F2937"),
+            title_font=dict(color="#1F2937"),
+            bgcolor="rgba(255,255,255,0.8)"
+        ), 
+        margin=dict(l=40, r=40, t=70, b=40),
+        xaxis=dict(
+            gridcolor="#E5E7EB",
+            linecolor="#CBD5E1",
+            tickfont=dict(color="#1F2937"),
+            title_font=dict(color="#1F2937")
+        ),
+        yaxis=dict(
+            gridcolor="#E5E7EB",
+            linecolor="#CBD5E1",
+            tickfont=dict(color="#1F2937"),
+            title_font=dict(color="#1F2937")
+        )
+    )
+    return fig
 
 
 def show_outliers(df: pd.DataFrame):
@@ -7,7 +37,7 @@ def show_outliers(df: pd.DataFrame):
 
     numeric_cols = [
         col for col in df.select_dtypes(include="number").columns.tolist()
-        if "year" not in col.lower()
+        if "year" not in col.lower() and "id" not in col.lower()
     ]
 
     if not numeric_cols:
@@ -55,8 +85,24 @@ def show_outliers(df: pd.DataFrame):
         f"or above **{upper_bound:.2f}** are flagged."
     )
 
+    fig = px.box(
+        df,
+        x=column,
+        title=f"Outlier Check for {column}",
+        color_discrete_sequence=["#C4A7E7"]
+    )
+
+    fig.update_layout(height=300)
+
+    fig = style_plotly_chart(fig)
+
+    st.plotly_chart(fig, use_container_width=True)
+
     if outlier_count > 0:
         st.warning(f"{outlier_count} outlier row(s) found in **{column}**.")
-        st.dataframe(outlier_rows, use_container_width=True)
+        st.dataframe(
+            outlier_rows,
+            use_container_width=True
+        )
     else:
         st.success(f"No outliers detected in **{column}**.")

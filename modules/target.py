@@ -8,6 +8,35 @@ TOP_DRIVER_LIMIT = 5
 MIN_GROUP_SIZE = 30
 
 
+def style_plotly_chart(fig):
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
+        font=dict(color="#1F2937"),
+        title_font=dict(color="#1F2937", size=20),
+        legend=dict(
+            font=dict(color="#1F2937"),
+            title_font=dict(color="#1F2937"),
+            bgcolor="rgba(255,255,255,0.8)"
+        ), 
+        margin=dict(l=40, r=40, t=70, b=40),
+        xaxis=dict(
+            gridcolor="#E5E7EB",
+            linecolor="#CBD5E1",
+            tickfont=dict(color="#1F2937"),
+            title_font=dict(color="#1F2937")
+        ),
+        yaxis=dict(
+            gridcolor="#E5E7EB",
+            linecolor="#CBD5E1",
+            tickfont=dict(color="#1F2937"),
+            title_font=dict(color="#1F2937")
+        )
+    )
+    return fig
+
+
 def convert_numeric_strings(df: pd.DataFrame) -> pd.DataFrame:
     df_copy = df.copy()
 
@@ -249,6 +278,7 @@ def show_target_distribution(df: pd.DataFrame, target: str, target_type: str):
         )
 
         fig.update_layout(height=420)
+        fig = style_plotly_chart(fig)
         st.plotly_chart(fig, use_container_width=True)
 
         summary = df[target].describe().reset_index()
@@ -274,11 +304,13 @@ def show_target_distribution(df: pd.DataFrame, target: str, target_type: str):
             x=target,
             y="Count",
             text="Count",
-            title=f"Distribution of {target}"
+            title=f"Distribution of {target}",
+            color_discrete_sequence=["#7C8DB5"]
         )
 
-        fig.update_traces(textposition="outside")
+        fig.update_traces(textposition="outside", textfont=dict(color="#1F2937"))
         fig.update_layout(height=420)
+        fig = style_plotly_chart(fig)
 
         st.plotly_chart(fig, use_container_width=True)
         st.dataframe(counts, use_container_width=True)
@@ -362,11 +394,13 @@ def show_driver_chart(driver_df, target, target_type, selected_class):
         x="Feature",
         y="Driver Score",
         text="Driver Score",
-        title=f"Top {TOP_DRIVER_LIMIT} Drivers of {target}"
+        title=f"Top {TOP_DRIVER_LIMIT} Drivers of {target}",
+        color_discrete_sequence=["#7C8DB5"]
     )
 
-    fig.update_traces(texttemplate="%{text:.3f}", textposition="outside")
+    fig.update_traces(texttemplate="%{text:.3f}", textposition="outside", textfont=dict(color="#1F2937"))
     fig.update_layout(height=430, xaxis_tickangle=-30)
+    fig = style_plotly_chart(fig)
 
     st.plotly_chart(fig, use_container_width=True)
     st.dataframe(driver_df, use_container_width=True)
@@ -441,10 +475,11 @@ def show_driver_inspection(
             x="_feature_group",
             y="rate",
             text="rate",
-            title=f"{selected_class} rate by {feature}"
+            title=f"{selected_class} rate by {feature}",
+            color_discrete_sequence=["#7C8DB5"]
         )
 
-        fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
+        fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside", textfont=dict(color="#1F2937"))
         fig.update_layout(
             height=420,
             xaxis_title=feature,
@@ -452,6 +487,7 @@ def show_driver_inspection(
             xaxis_tickangle=-30,
             yaxis_range=[0, 100]
         )
+        fig = style_plotly_chart(fig)
 
         st.plotly_chart(fig, use_container_width=True)
         st.dataframe(rate_df, use_container_width=True)
@@ -463,7 +499,8 @@ def show_driver_inspection(
                 x=feature,
                 y=target,
                 opacity=0.55,
-                title=f"{feature} vs {target}"
+                title=f"{feature} vs {target}",
+                color_discrete_sequence=["#7C8DB5"]
             )
         else:
             temp_df[feature] = temp_df[feature].astype(str)
@@ -472,10 +509,12 @@ def show_driver_inspection(
                 temp_df,
                 x=feature,
                 y=target,
-                title=f"{target} across {feature}"
+                title=f"{target} across {feature}",
+                color_discrete_sequence=["#7C8DB5"]
             )
 
         fig.update_layout(height=420, xaxis_tickangle=-30)
+        fig = style_plotly_chart(fig)
         st.plotly_chart(fig, use_container_width=True)
 
 

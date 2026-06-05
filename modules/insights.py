@@ -205,5 +205,5 @@ def show_automated_insights(df: pd.DataFrame):
 
     st.info(
         "These insights are intended as a starting point for exploration. "
-        "They highlight patterns worth checking further, not final conclusions."
+        "Review the detailed tabs before making final decisions."
     )
