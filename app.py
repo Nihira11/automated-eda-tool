@@ -7,6 +7,7 @@ from modules.distributions import show_distribution
 from modules.outliers import show_outliers
 from modules.correlations import show_correlations
 from modules.target import show_target_analysis
+from modules.insights import show_automated_insights
 
 
 st.set_page_config(
@@ -103,6 +104,11 @@ if uploaded_file is not None:
 
     # target analysis
     show_target_analysis(df)
+
+    st.markdown("---")
+
+    # insights
+    show_automated_insights(df)
 
 else:
     st.info("Upload a CSV file to begin.")

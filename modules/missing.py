@@ -25,10 +25,12 @@ def show_missing_values(df: pd.DataFrame):
         return
 
     total_missing = missing_count.sum()
+    percent_missing = round(total_missing / (df.shape[0] * df.shape[1]) * 100, 2)
 
     st.info(
         f"Dataset contains {total_missing} missing value(s) across "
-        f"{len(missing_df)} column(s)."
+        f"{len(missing_df)} column(s) "
+        f"covering {percent_missing}% of all cells."
     )
 
     st.markdown("### Columns with Missing Values")
