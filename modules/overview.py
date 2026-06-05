@@ -35,12 +35,16 @@ def show_overview(df: pd.DataFrame):
     total_missing = df.isnull().sum().sum()
     likely_id_cols = detect_likely_id_columns(df)
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns([1, 1, 1], gap="large")
 
-    col1.metric("Rows", f"{df.shape[0]:,}")
-    col2.metric("Columns", f"{df.shape[1]:,}")
-    col3.metric("Missing Values", f"{total_missing:,}")
-    col4.metric("Likely ID Columns", len(likely_id_cols))
+    with col1:
+        st.metric("Rows", f"{df.shape[0]:,}")
+
+    with col2:
+        st.metric("Columns", f"{df.shape[1]:,}")
+
+    with col3:
+        st.metric("Missing Values", f"{total_missing:,}")
 
     st.markdown("### Dataset Preview")
     st.caption("First five rows of the uploaded dataset.")
