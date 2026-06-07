@@ -1,3 +1,5 @@
+### Note: The app may take a few seconds to wake up if it has been inactive.
+
 # Automated EDA Tool (Interactive Data Analysis App)
 
 An interactive Streamlit application that performs automated Exploratory Data Analysis (EDA) on any CSV dataset.  
