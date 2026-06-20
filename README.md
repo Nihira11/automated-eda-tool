@@ -179,6 +179,13 @@ streamlit run app.py
 - Titanic Survival Dataset
 - Samll Dataset (Self-made)
 
+## Example Datasets Tested
+
+- [IBM Telco Customer Churn Dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
+- [Titanic Survival Prediction Dataset](https://www.kaggle.com/datasets/yasserh/titanic-dataset)
+- Small Synthetic Dataset (Self-made, included in the repository)
+
+
 The application is designed to work with most structured CSV datasets.
 
 ---
