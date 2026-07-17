@@ -2,9 +2,9 @@
 
 # Automated EDA Tool (Interactive Data Analysis App)
 
-An interactive Streamlit application that performs automated Exploratory Data Analysis (EDA) on any CSV dataset.  
+An interactive data analysis tool that helps users quickly understand any CSV dataset without writing code.
 
-Users can upload a CSV file and instantly generate visualisations, statistical summaries, data quality checks, and automated insights without writing any code.
+After uploading a file, the app automatically checks data quality, creates charts, calculates summary statistics, identifies possible problems and produces useful insights.
 
 ---
 
@@ -16,96 +16,113 @@ Live app: https://automated-eda-tool.streamlit.app/
 ## Features
 
 ### Dataset Overview
-- Dataset dimensions
-- Column information
-- Data type summary
+Provides a quick summary of the uploaded dataset, including:
+
+- Number of rows and columns
+- Column names and information
+- Data types
+- Summary statistics
 - Dataset preview
 
 ![Overview](screenshots/overview.png)
 
 ### Automated Insights
-- Dataset structure summary
-- Missing value detection
-- Skewness detection
-- Outlier observations
+Automatically reviews the dataset and highlights important findings, including:
+
+- Dataset structure
+- Missing values
+- Skewed columns
+- Possible outliers
 - Data quality warnings
 
 ![Insights](screenshots/insights.png)
 
 ### Missing Value Analysis
+Finds and explains missing data using:
+
 - Missing value counts
 - Missing value percentages
-- Missing value visualisations
+- Visual comparisons between columns
 
 ![Missing Values](screenshots/missing_values.png)
 
 ### Distribution Analysis
+Helps users understand how numerical values are spread across the dataset through:
+
 - Histograms
 - Box plots
-- Distribution interpretation
+- Distribution explanations
 - Skewness detection
 
 ![Distributions](screenshots/distributions.png)
 ![Distributions](screenshots/distributions_2.png)
 
 ### Outlier Detection
-- IQR-based outlier analysis
-- Outlier counts
-- Outlier percentages
-- Outlier visualisation
+Uses the Interquartile Range (IQR) method to identify unusual values.
+
+The page shows:
+- Number of outliers
+- Percentage of outliers
+- Outlier visualisations
+- Column-level comparisons
 
 ![Outliers](screenshots/outliers.png)
 
 ### Correlation Analysis
+Studies the relationships between numerical columns using:
+
 - Correlation heatmaps
 - Strongest numeric relationships
-- Relationship analysis
+- Simple relationship explanations
 
 ![Correlations](screenshots/correlations.png)
 
 ### Target Variable Analysis
-- Automatic target variable inspection
-- Target distribution analysis
-- Driver ranking
+Allows users to select a target column and explore the variables connected to it.
+
+It includes:
+- Target distribution
+- Important driver rankings
 - Feature importance insights
-- Relationship exploration
+- Relationships between the target and other columns
 
 ![Target Analysis](screenshots/target.png)
 
 ### Data Quality Checks
-- Duplicate record detection
-- Potential data type issues
-- High-cardinality feature handling
-- ID column detection
+Checks the dataset for common problems, including:
+
+- Duplicate records
+- Possible incorrect data types
+- Columns with too many unique values
+- Possible ID columns
 
 ![Duplicates](screenshots/duplicate_detection.png)
 
 ---
 
-## Project Motivation
+## Project Purpose
 
-Exploratory Data Analysis is one of the most important stages of any data science workflow. However, the process is often repetitive and time-consuming.
+Exploratory Data Analysis is an important first step in most data science projects. However, checking every column, creating charts and finding data quality problems can take a lot of time. This tool automates the most common EDA tasks and helps analysts, students and researchers understand a new dataset before starting modelling or deeper analysis.
 
-This project was developed to automate common EDA tasks and provide analysts, students and researchers with a quick way to understand a new dataset before modelling.
-
-The application follows a typical analyst workflow by automatically:
-
-- Inspecting data quality
-- Detecting missing values
-- Identifying outliers
-- Exploring distributions
+The application follows a normal data analysis process by automatically:
+- Checking data quality
+- Finding missing values
+- Identifying possible outliers
+- Studying data distributions
 - Analysing correlations
-- Generating dataset insights
+- Creating useful dataset insights
 
 ---
 
-## Technologies Used
+## Tools and Technologies
 
-- Python
-- Pandas
-- Plotly
-- Streamlit
-- Custom CSS
+| Category | Tools |
+| ------- | ------------ |
+| Language | Python |
+| Data processing | Pandas |
+| Visualisation | Plotly |
+| Web application | Streamlit |
+| Design | Custom CSS |
 
 ---
 
@@ -118,19 +135,19 @@ automated-eda-tool/
 ├── README.md                           # Project documentation
 ├── requirements.txt                    # Project dependencies
 │
-├── modules/                            # Core EDA modules
+├── modules/
 │   ├── overview.py                     # Dataset overview and summary statistics
 │   ├── insights.py                     # Automated insight generation
 │   ├── missing.py                      # Missing values analysis
-│   ├── distributions.py                # Distribution analysis and visualisations
+│   ├── distributions.py                # Distribution charts and analysis
 │   ├── correlations.py                 # Correlation analysis and heatmaps
 │   ├── outliers.py                     # Outlier detection and analysis
-│   ├── target_analysis.py              # Target variable analysis and driver detection
-│   └── styles.py                       # Custom UI styling
+│   ├── target_analysis.py              # Target analysis and driver detection
+│   └── styles.py                       # App styling
 │
-├── data/                               # Sample datasets for testing
+├── data/                               # Sample datasets used for testing
 │
-└── screenshots/                        # Screenshots used in README
+└── screenshots/                        # Screenshots
 │   ├── overview.png
 │   ├── overview_2.png
 │   ├── insights.png
@@ -147,27 +164,17 @@ automated-eda-tool/
 
 ## Installation
 
-Clone the repository:
-
 ```bash
+# 1. Clone the repository:
 git clone https://github.com/Nihira11/automated-eda-tool.git
-```
 
-Move into the project directory:
-
-```bash
+# 2. Open the project directory:
 cd automated-eda-tool
-```
 
-Install dependencies:
-
-```bash
+# 3. Install dependencies:
 pip install -r requirements.txt
-```
 
-Run the application:
-
-```bash
+# 4. Run the application:
 streamlit run app.py
 ```
 
@@ -175,35 +182,30 @@ streamlit run app.py
 
 ## Example Datasets Tested
 
-- Telco Customer Churn Dataset
-- Titanic Survival Dataset
-- Samll Dataset (Self-made)
-
-## Example Datasets Tested
-
 - [IBM Telco Customer Churn Dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 - [Titanic Survival Prediction Dataset](https://www.kaggle.com/datasets/yasserh/titanic-dataset)
 - Small Synthetic Dataset (Self-made, included in the repository)
 
-
-The application is designed to work with most structured CSV datasets.
+The application is designed to work with most structured CSV datasets
 
 ---
 
 ## Future Improvements
 
-- Automated report export (PDF/HTML)
-- Feature recommendation engine
-- Time-series analysis support
-- Advanced statistical testing
-- Machine learning readiness checks
-- Downloadable EDA summaries
+Possible improvements include:
+
+- Export complete EDA reports as PDF or HTML
+- Recommend useful features for modelling
+- Add support for time-series datasets
+- Include more advanced statistical tests
+- Check whether a dataset is ready for machine learning
+- Allow users to download analysis summaries
 
 ---
 
 ## Author
 
-Developed as a Data Analytics and Data Science portfolio project showcasing:
+Developed as a Data Analytics and Data Science portfolio project demonstrating:
 
 - Data cleaning
 - Exploratory Data Analysis
